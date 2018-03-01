@@ -305,6 +305,7 @@ class Master:
 
     def _listen_slaver(self):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         try_bind_port(sock, self.communicate_addr)
         sock.listen(10)
         _listening_sockets.append(sock)
@@ -322,6 +323,7 @@ class Master:
 
     def _listen_customer(self):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         try_bind_port(sock, self.customer_listen_addr)
         sock.listen(20)
         _listening_sockets.append(sock)
